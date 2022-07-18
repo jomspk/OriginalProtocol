@@ -15,12 +15,12 @@ describe("RaribleRoyaltyERC721 Test", () => {
     it("mint two tokens and set two different royalties", async () => {
       const royalty10Percent = 1000;
       const royalty20Percent = 2000;
-      await royaltyNFT.connect(deployer).mint(account1.address);
-      await royaltyNFT.connect(deployer).setRoyalties(0, account1.address, royalty10Percent);
-      await royaltyNFT.connect(deployer).mint(account1.address);
-      await royaltyNFT.connect(deployer).setRoyalties(1, account1.address, royalty20Percent);
-      const token0Royalty = await royaltyNFT.getRaribleV2Royalties(0);
-      const token1Royalty = await royaltyNFT.getRaribleV2Royalties(1);
+      await royaltyNFT.connect(deployer).mintJamNFT(account1.address, 1, "hoge", "hogeimage");
+      await royaltyNFT.connect(deployer).setRoyalties(1, account1.address, royalty10Percent);
+      await royaltyNFT.connect(deployer).mintJamNFT(account1.address, 2, "hoge2", "hogeimage2");
+      await royaltyNFT.connect(deployer).setRoyalties(2, account1.address, royalty20Percent);
+      const token0Royalty = await royaltyNFT.getRaribleV2Royalties(1);
+      const token1Royalty = await royaltyNFT.getRaribleV2Royalties(2);
       expect(token0Royalty[0][1]).to.equal(royalty10Percent);
       expect(token1Royalty[0][1]).to.equal(royalty20Percent);
     });
